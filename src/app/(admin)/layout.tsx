@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ReactNode } from "react";
 import Header from "../components/Header";
 import Headers from "./header";
+import { Button } from "@/components/ui/button";
 
 export default function AdminLayout({
   children,
@@ -13,10 +14,10 @@ export default function AdminLayout({
       <div className="bg-blue-400 h-[1204px] w-[10vw]">
         <img src="/footerlogo.svg" alt="" />
         <Link href={"/foodmenu"}>
-          <button className="w-[165px] h-[40px]">Food menu</button>
+          <Button className="w-[165px] h-[40px]">Food menu</Button>
         </Link>
         <Link href={"/orders"}>
-          <button className="w-[165px] h-[40px]">Orders</button>
+          <Button className="w-[165px] h-[40px]">Orders</Button>
         </Link>
       </div>
       <div className="flex flex-col">
