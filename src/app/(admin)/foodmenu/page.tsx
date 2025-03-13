@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Inputfood from "../input";
 import Page from "../page";
+import { Headers } from "../header";
 
 export default function DialogDemo() {
   return (
@@ -26,10 +27,8 @@ export default function DialogDemo() {
           <DialogTitle>Add new dish to Appetizers</DialogTitle>
         </DialogHeader>
         <Inputfood />
-        <Page />
-        <DialogFooter>
-          <Button type="submit">Add dish</Button>
-        </DialogFooter>
+
+        <DialogFooter></DialogFooter>
       </DialogContent>
     </Dialog>
   );

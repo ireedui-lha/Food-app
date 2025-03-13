@@ -56,23 +56,28 @@ export default function Page() {
               </label>
             </>
           )}
-
+          {image ? (
+            <div>
+              <Image
+                alt="uploaded"
+                className="w-[416px] h-[180px] object-cover"
+                src={image}
+                width={400}
+                height={400}
+              />
+            </div>
+          ) : (
+            <button onClick={handleupload} className="bg-red-500">
+              upload
+            </button>
+          )}
           <input
             id="fileInput"
             type="file"
             className="hidden"
             onChange={handleFile}
           />
-          <img src={file} alt="" />
         </div>
-        <button onClick={handleupload} className="bg-red-500">
-          upload
-        </button>
-        {image && (
-          <div>
-            <Image alt="uploaded" src={image} width={400} height={400} />
-          </div>
-        )}{" "}
       </div>
     </div>
   );
