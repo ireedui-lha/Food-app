@@ -13,7 +13,7 @@ import {
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import Page from "./page";
+
 const formSchema = z.object({
   food: z.string().min(2).max(6, "ihde 6"),
   price: z.string().min(2, "bagda 2").max(6, "ihde 6"),
@@ -95,7 +95,7 @@ export default function Inputfood() {
                     />
                   </div>
                 </FormControl>
-                <Page />
+
                 <Button type="submit">Add dish</Button>
                 <FormMessage />
               </FormItem>
