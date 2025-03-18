@@ -1,6 +1,18 @@
 import { Facebook, Instagram } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function Footer() {
+  const [category, setCategory] = useState();
+  useEffect(() => {
+    const getCategory = async () => {
+      const data = await fetch("http://localhost:4000/food");
+      const jsonData = await data.json();
+      console.log(jsonData);
+      setCategory(jsonData.getfood);
+      console.log("category", jsonData);
+    };
+    getCategory();
+  }, []);
   return (
     <div className="bg-[#18181B] h-[528px] flex flex-col ">
       <div className="bg-[#18181B] w-[100vw] flex  ">
@@ -26,17 +38,15 @@ export default function Footer() {
           <p> Delivery zone</p>
         </div>
         <div>
-          <h1>MENU</h1>
-          <p>kjgasd</p>
-          <p>dsad</p>
-          <p>dsadasd</p>
-          <p>dadsad</p>
-        </div>
-        <div>
-          <p>dsadsadd</p>
-          <p>dasdasds</p>
-          <p>dadasda</p>
-          <p>dsadasda</p>
+          {category?.map((name: string, index: number) => {
+            return (
+              <div key={index} className="flex">
+                <div>
+                  <p>{name.categoryName}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
         <div>
           <h1>Follow us</h1>

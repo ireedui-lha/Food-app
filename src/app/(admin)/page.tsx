@@ -61,6 +61,7 @@ const formSchema = z.object({
 export function DialogDemos() {
   const [foodImageFile, setFoodImageFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
+  const [postDatas, setPostDatas] = useState<any[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -84,6 +85,7 @@ export function DialogDemos() {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log("NEMDEG AJILJ EHELLEE");
+    await PostData(values.categoryName);
     const imageUrl = await uploadImage(foodImageFile);
     if (!imageUrl) return;
 
@@ -104,11 +106,35 @@ export function DialogDemos() {
     const jsonData = await response.json();
     console.log("data", jsonData);
   };
+  const PostData = async (categoryName: string) => {
+    try {
+      const postData = await fetch("http://localhost:4000/food", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ categoryName: categoryName }),
+      });
+
+      if (!postData.ok) {
+        throw new Error(`getdata status:${postData.status}`);
+      }
+
+      const getJson = await postData.json();
+      console.log("Post response:", getJson);
+
+      setPostDatas(getJson.postData || []);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
   return (
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline">Edit Profile</Button>
+          <Button className="w-[400px] h-[400px]" variant="outline">
+            addfood
+          </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[496px] h-[594px] flex p-6 flex-col items-start gap-6 rounded-[12px]">
           <DialogHeader>
@@ -120,31 +146,33 @@ export function DialogDemos() {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-8"
               >
-                <FormField
-                  control={form.control}
-                  name="categoryName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>categoryName</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Type food name" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="price"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Enter price...</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter price..." {...field} />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
+                <div className="flex gap-10">
+                  <FormField
+                    control={form.control}
+                    name="categoryName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>categoryName</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Type food name" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="price"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Enter price...</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Enter price..." {...field} />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
                 <FormField
                   control={form.control}
                   name="ingredients"
@@ -178,7 +206,7 @@ export function DialogDemos() {
                         />
                       )}
                       <FormMessage />
-                      <Button type="submit">Илгээх</Button>
+                      <Button type="submit">psda</Button>
                     </FormItem>
                   )}
                 />
